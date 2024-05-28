@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import glob
 
-sift = cv2.xfeatures2d.SIFT_create() # opencv 3
+sift = cv2.SIFT_create() # opencv 3
 # use "sift = cv2.SIFT()" if the above fails
 
 I2 = cv2.imread('scene.jpg')
@@ -18,12 +18,20 @@ for fname in fnames:
     keypoints1, desc1 = sift.detectAndCompute(G1, None); 
     cv2.drawKeypoints(G1,keypoints2,I1)
     
+    matches = cv2.BFMatcher().knnMatch(desc1,desc2, k=2)
+    
     good_matches = []
+    alpha = 0.5
+    for m1,m2 in matches:
+        # m1 is the best match
+        # m2 is the second best match
+        if m1.distance < alpha *m2.distance:
+            good_matches.append(m1)
             
     I = cv2.drawMatches(I1,keypoints1,I2,keypoints2,good_matches, None)
     
     no_matches = len(good_matches)
-    if no_matches > 30:
+    if no_matches > 10:
         txt = "Object found! (matches = %d)"%no_matches
     else:
         txt = "Object not found! (matches = %d)"%no_matches
@@ -36,3 +44,4 @@ for fname in fnames:
         break
 
     
+cv2.destroyAllWindows()
