@@ -7,7 +7,7 @@ G1 = cv2.cvtColor(I1,cv2.COLOR_BGR2GRAY)
 I2 = cv2.imread('book2.jpg')
 G2 = cv2.cvtColor(I2,cv2.COLOR_BGR2GRAY)
 
-#sift = cv2.FeatureDetector_create("SIFT") # opencv 2.x.x
+# sift = cv2.FeatureDetector_create("SIFT") # opencv 2.x.x
 sift = cv2.SIFT_create() # opencv 3.x.x
 # use "sift = cv2.SIFT()" if the above fails
 

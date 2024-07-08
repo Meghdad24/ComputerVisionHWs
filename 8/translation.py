@@ -8,8 +8,8 @@ tx = 100
 ty = 40
 
 # use an affine transformation matrix (2x3)
-M = np.array([[1, 0, tx],
-              [0, 1, ty]]).astype(np.float32)
+M = np.array([[0.2, 0.5, tx],
+              [0.8, 1, ty]]).astype(np.float32)
 
 output_size = (I.shape[1],I.shape[0]) # output image size
 output_size = (I.shape[1]+200, I.shape[0]*2);
@@ -25,7 +25,7 @@ cv2.waitKey(0)
 # ! use a homography transformation matrix (3x3)
 H = np.array([[1, 0, tx],
               [0, 1, ty],
-              [0, 0, 1]]).astype(np.float32)
+              [0.01, 0.01, 1]]).astype(np.float32)
 
 K = cv2.warpPerspective(I,H, output_size)
 cv2.imshow('K',K)
